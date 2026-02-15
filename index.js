@@ -2,6 +2,8 @@ const express = require('express')
 const path = require('path')
 const userRoute = require('./routes/user');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
+const { checkForAuthenticationCookie } = require('./middleware/authentication');
 
 // const {} = require('dotenv')
 
@@ -13,11 +15,15 @@ mongoose.connect('mongodb+srv://rohan:pass123@cluster0.ucvjgur.mongodb.net/?appN
 app.set('view engine', 'ejs')
 app.set('views',path.resolve("./views"))
 
+// middlewares
 app.use(express.urlencoded({extended: false}))
-
+app.use(cookieParser())
+app.use(checkForAuthenticationCookie("token"))
 
 app.get('/', (req,res)=>{
-    res.render("home")
+    return res.render("home",{
+        user : req.user
+    })
 })
 
 app.use('/user',userRoute)
