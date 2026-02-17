@@ -2,11 +2,28 @@
 <html lang="en">
 <head>
     <%- include('./partials/head') %>
-    <title>Home Page</title>
+    <title>Add New Blog </title>
 </head>
 <body>
     <%- include('./partials/navbar') %>
+     <div class="container mt-3">
+        <form action="/blog" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="coverImage" class="form-label">Cover Image</label>
+                <input type="file" class="form-control" id="coverImage" name="coverImage" aria-describedby="title">
+            </div>
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title" aria-describedby="title">
+            </div>
+            <div class="mb-3">
+                <label for="body">Body</label>
+                <textarea class="form-control" id="body" name="body"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+     </div>
     <%- include('./partials/scripts') %>
-    <%= JSON.stringify(user) %>
+    
 </body>
 </html>
